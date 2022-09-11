@@ -1,5 +1,5 @@
 node_modules/
-browser-polyfill*
+vendor/
 web-ext-artifacts/
 .web-extension-id
 dist/
