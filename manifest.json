@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "name": "Paddle OCR Testing",
+    "version": "1.0",
+    "description": "Testing out Paddle OCR for chinese on the browser",
+    "permissions": ["activeTab"],
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "img/icon-16.png",
+            "19": "img/icon-19.png",
+            "38": "img/icon-38.png",
+            "48": "img/icon-48.png",
+            "128": "img/icon-128.png",
+            "256": "img/icon-256.png"
+        }
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "paddle-test@kamui"
+        }
+    }
+}

@@ -1,0 +1,58 @@
+body {
+    min-width: 500px;
+    background-color: #202124;
+    color: #fcfcfc;
+    font-family: "Titillium Web", sans-serif;
+    padding: 0.5rem;
+}
+
+#add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.3rem;
+    border: none;
+}
+
+button {
+    align-self: flex-start;
+    background: #8ab4f8;
+    color: #202124;
+    border: none;
+    border-radius: 3px;
+    padding: 0.6em 1.6em;
+    font-weight: 500;
+}
+
+button:hover {
+    cursor: pointer;
+    opacity: 90%;
+}
+
+form {
+    padding: 0;
+    margin: 0;
+}
+
+#success {
+    padding: 0.5rem 0.8rem;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}
+
+.hide {
+    display: none;
+}
