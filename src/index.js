@@ -6,9 +6,94 @@ const imgElement = document.getElementById("image");
 const txt = document.getElementById("txt");
 const canvas = document.getElementById("canvas");
 
+const vertical = true;
+
 const processImage = async () => {
     // const res = await ocr.recognize(imgElement, { canvas });
     const res = {
+        text: [
+            "",
+            "昨天谢谢你。",
+            "对了：",
+            "没影响吧？",
+            "美术杜那边",
+            "美",
+            "社团的啊*$.．",
+            "知道我是哪个",
+            "野崎君·",
+            "啊",
+            "对啊·",
+        ],
+        points: [
+            [
+                [79.99375, 56.065625],
+                [136.13125, 56.065625],
+                [136.13125, 139.990625],
+                [79.99375, 139.990625],
+            ],
+            [
+                [567.046875, 51.434375],
+                [610.0625, 51.434375],
+                [610.834375, 211.775],
+                [567.81875, 211.775],
+            ],
+            [
+                [637.2875, 60.696875000000006],
+                [681.075, 60.696875000000006],
+                [681.075, 139.21875],
+                [637.2875, 139.21875],
+            ],
+            [
+                [443.546875, 185.740625],
+                [490.421875, 185.740625],
+                [490.421875, 331.415625],
+                [443.546875, 331.415625],
+            ],
+            [
+                [472.10625, 185.740625],
+                [519.753125, 185.740625],
+                [519.753125, 335.275],
+                [472.10625, 335.275],
+            ],
+            [
+                [472.10625, 195.003125],
+                [493.509375, 195.003125],
+                [493.509375, 219.49375],
+                [472.10625, 219.49375],
+            ],
+            [
+                [494.490625, 423.478125],
+                [541.365625, 423.478125],
+                [541.365625, 596.940625],
+                [494.490625, 596.940625],
+            ],
+            [
+                [523.821875, 424.25],
+                [571.46875, 424.25],
+                [571.46875, 600.028125],
+                [523.821875, 600.028125],
+            ],
+            [
+                [607.95625, 429.653125],
+                [653.2875, 430.425],
+                [650.971875, 544.453125],
+                [605.640625, 543.68125],
+            ],
+            [
+                [82.309375, 452.809375],
+                [120.69375, 455.896875],
+                [117.60625, 492.7375],
+                [79.221875, 489.65],
+            ],
+            [
+                [62.240624999999994, 551.609375],
+                [106.028125, 551.609375],
+                [106.028125, 624.728125],
+                [62.240624999999994, 624.728125],
+            ],
+        ],
+    };
+    /* const res = {
         text: ["邮命。", "我不是", "灰飞烟灭了吗？", "身．", "这是棺樟？"],
         points: [
             [
@@ -42,7 +127,7 @@ const processImage = async () => {
                 [147.146875, 780.1052083333333],
             ],
         ],
-    };
+    }; */
 
     const rect = imgElement.getBoundingClientRect();
 
@@ -71,9 +156,31 @@ const processImage = async () => {
         textSpan.style.top = `${currRect[0][1]}px`;
         textSpan.style.width = `${currRect[1][0] - currRect[0][0]}px`;
         textSpan.style.height = `${currRect[3][1] - currRect[0][1]}px`;
+
+        if (vertical) {
+            textSpan.style.display = "flex";
+            textSpan.style.justifyContent = "center";
+            textSpan.style.alignItems = "center";
+
+            textSpan.style.writingMode = "vertical-rl";
+            textSpan.style.textOrientation = "mixed";
+        }
+
         textSpan.innerHTML = currText;
         overlayContainer.appendChild(textSpan);
-        textFit(textSpan, { widthOnly: true, detectMultiLine: false });
+
+        if (vertical) {
+            textFit(textSpan, {
+                detectMultiLine: true,
+                alignHoriz: true,
+                alignVertWithFlexbox: true,
+            });
+        } else {
+            textFit(textSpan, {
+                widthOnly: true,
+                detectMultiLine: false,
+            });
+        }
     }
 
     if (res.text?.length) {
