@@ -1,15 +1,59 @@
 // import * as ocr from "@paddlejs-models/ocr";
 import textFit from "textfit";
 
+// in px
+const MIN_WIDTH = 500;
+const MIN_HEIGHT = 500;
+
 const loading = document.getElementById("isLoading");
-const imgElement = document.getElementById("image");
-const txt = document.getElementById("txt");
-const canvas = document.getElementById("canvas");
 
 const vertical = true;
 
-const processImage = async () => {
-    // const res = await ocr.recognize(imgElement, { canvas });
+let images = [];
+let overlayToImage = {};
+
+const positionToElm = (parent, overlay) => {
+    const rect = parent.getBoundingClientRect();
+    overlay.style.position = "absolute";
+    overlay.style.left = `${rect.left}px`;
+    overlay.style.top = `${rect.top}px`;
+    overlay.style.width = `${parent.clientWidth}px`;
+};
+
+window.addEventListener(
+    "resize",
+    () => {
+        overlayToImage.keys().map((overlay) => {
+            positionToElm(overlayToImage[overlay], overlay);
+        });
+    },
+    true
+);
+
+const getMatchedImages = () => {
+    const images = document.getElementsByTagName("img");
+    const list = [];
+    for (let image of images) {
+        if (
+            image.clientWidth >= MIN_WIDTH &&
+            image.clientHeight >= MIN_HEIGHT
+        ) {
+            if (!image.complete) {
+                // unsure whether this causes issues
+                /* image.onload = () => {
+                    images = getMatchedImages();
+                }; */
+            }
+            list.push(image);
+        }
+    }
+    return list;
+};
+
+images = getMatchedImages();
+
+const processImage = async (img) => {
+    // const res = await ocr.recognize(img, { canvas });
     const res = {
         text: [
             "",
@@ -129,19 +173,14 @@ const processImage = async () => {
         ],
     }; */
 
-    const rect = imgElement.getBoundingClientRect();
-
     // setup overlay container
     let overlayContainer = document.createElement("div");
-    overlayContainer.style.position = "absolute";
-    overlayContainer.style.left = `${rect.left}px`;
-    overlayContainer.style.top = `${rect.top}px`;
+    overlayContainer.style.height = `${img.clientHeight}px`;
     overlayContainer.style.zIndex = 99;
-    overlayContainer.style.width = `${imgElement.clientWidth}px`;
-    overlayContainer.style.height = `${imgElement.clientHeight}px`;
     overlayContainer.style.background = "transparent";
     overlayContainer.style.color = "transparent";
 
+    positionToElm(img, overlayContainer);
     document.body.appendChild(overlayContainer);
 
     for (let i = 0; i < res.text.length; i++) {
@@ -183,23 +222,23 @@ const processImage = async () => {
         }
     }
 
-    if (res.text?.length) {
-        txt.innerHTML = res.text.reduce(
-            (total, cur) => total + `<p>${cur}</p>`
-        );
-    }
+    return overlayContainer;
 };
 
 async function load() {
     // await ocr.init();
     loading.style.display = "none";
-
-    if (imgElement.complete) {
-        processImage();
-    } else {
-        imgElement.addEventListener("load", processImage);
-        imgElement.addEventListener("error", () => console.log("error"));
-    }
+    images.forEach(async (img) => {
+        if (img.complete) {
+            const overlay = await processImage(img);
+            overlayToImage[overlay] = img;
+        } else {
+            img.addEventListener("load", async () => {
+                overlayToImage[await processImage(img)] = img;
+            });
+            img.addEventListener("error", () => console.log("error"));
+        }
+    });
 }
 
 load();

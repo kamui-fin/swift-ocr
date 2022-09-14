@@ -12,10 +12,10 @@ Because the product is in its development stage, the code currently serves up a 
 
 ## Todo
 
--   Create spans based off of discrete rectangles (so it works with rotations)
--   Improve alignment in both vertical and horizontal directions
 -   Define custom region feature
     -   By default it runs on all images > a certain dimension
--   Dynamically re-compute text on change of region feature
 -   Improve speed of computation
 -   Improve output quality by cleaning punctuation
+-   Improve alignment in both vertical and horizontal directions
+-   Dynamically re-compute text on change of region feature
+-   Create spans based off of discrete rectangles (so it works with rotations)
