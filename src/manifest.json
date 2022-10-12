@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "Swift OCR",
+    "version": "1.0",
+    "description": "An addon that enables a hassle-free OCR experience to learn languages",
+    "permissions": ["activeTab"],
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "swift-ocr@kamui"
+        }
+    }
+}

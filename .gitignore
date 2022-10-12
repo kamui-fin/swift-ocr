@@ -4,3 +4,4 @@ web-ext-artifacts/
 .web-extension-id
 dist/
 img/
+build/

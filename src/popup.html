@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- <script
+            type="application/javascript"
+            src="browser-polyfill.js"
+        ></script> -->
+        <!-- <link rel="stylesheet" href="style.css" media="all" /> -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            .wrapper {
+                position: relative;
+                display: flex;
+                text-align: left;
+                padding: 2%;
+                flex-wrap: wrap;
+                min-height: 500px;
+            }
+
+            .title {
+                font-weight: 600;
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .left {
+                display: flex;
+                flex-wrap: wrap;
+                width: min-content;
+                min-width: 55%;
+            }
+
+            .box {
+                min-width: 320px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                margin-bottom: 100px;
+                padding: 10px;
+            }
+
+            img {
+                display: block;
+            }
+
+            .tool {
+                margin-right: 50px;
+                flex-shrink: 0;
+            }
+
+            .canvas {
+                margin-right: 50px;
+            }
+
+            #image {
+                display: block;
+                margin-top: 10px;
+            }
+
+            #txt {
+                line-height: 2;
+                height: min-content;
+            }
+
+            #isLoading {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            #isLoading .loading-text {
+                color: #fff;
+                font-size: 24px;
+                text-align: center;
+                line-height: 100vh;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="left">
+                <div class="tool box">
+                </div>
+                <div class="canvas box"></div>
+            </div>
+            <div class="box">
+                <div id="txt"></div>
+            </div>
+        </div>
+
+        <div id="isLoading">
+            <p class="loading-text center">loading中……</p>
+        </div>
+    </body>
+    <!-- <script src="main.js"></script> -->
+</html>
